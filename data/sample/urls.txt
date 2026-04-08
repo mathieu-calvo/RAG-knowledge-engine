@@ -1,0 +1,3 @@
+https://en.wikipedia.org/wiki/Retrieval-augmented_generation
+https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)
+https://en.wikipedia.org/wiki/Vector_database
