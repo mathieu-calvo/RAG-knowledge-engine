@@ -45,7 +45,7 @@ class TestChunkDocuments:
         ]
         chunk_size = 100
         chunks = chunk_documents(docs, strategy="recursive", chunk_size=chunk_size, chunk_overlap=0)
-        # Most chunks should be at or below chunk_size (some may slightly exceed due to splitter behavior)
+        # Most chunks should be near chunk_size (some may slightly exceed)
         for chunk in chunks:
             assert len(chunk.page_content) <= chunk_size * 1.5  # Allow some tolerance
 

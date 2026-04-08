@@ -86,9 +86,10 @@ if st.button("Ingest Documents", type="primary"):
         with st.spinner(f"Embedding and storing {len(chunks)} chunks..."):
             try:
                 add_documents(chunks)
-                st.session_state.ingested_docs.extend(
-                    [{"name": d.metadata.get("source", "unknown"), "chunks": len(chunks)} for d in all_docs]
-                )
+                st.session_state.ingested_docs.extend([
+                    {"name": d.metadata.get("source", "unknown"), "chunks": len(chunks)}
+                    for d in all_docs
+                ])
                 st.success(f"Ingested {len(chunks)} chunks from {len(all_docs)} document(s)")
             except Exception as e:
                 st.error(f"Error during embedding: {e}")

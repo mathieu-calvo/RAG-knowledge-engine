@@ -12,7 +12,9 @@ from rag_engine.loaders.web_loader import load_web
 class TestCSVLoader:
     def test_load_csv(self, tmp_path):
         csv_file = tmp_path / "test.csv"
-        csv_file.write_text("term,definition\nRAG,Retrieval-Augmented Generation\nLLM,Large Language Model\n")
+        csv_file.write_text(
+            "term,definition\nRAG,Retrieval-Augmented Generation\nLLM,Large Language Model\n"
+        )
 
         docs = load_csv(csv_file)
         assert len(docs) == 2

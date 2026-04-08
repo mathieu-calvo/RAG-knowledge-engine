@@ -34,8 +34,14 @@ class TestVectorStore:
 
     def test_add_and_retrieve_documents(self, temp_dir, fake_embeddings):
         docs = [
-            Document(page_content="RAG combines retrieval with generation.", metadata={"source": "a"}),
-            Document(page_content="Vector databases enable fast similarity search.", metadata={"source": "b"}),
+            Document(
+                page_content="RAG combines retrieval with generation.",
+                metadata={"source": "a"},
+            ),
+            Document(
+                page_content="Vector databases enable fast similarity search.",
+                metadata={"source": "b"},
+            ),
         ]
 
         vs = add_documents(
