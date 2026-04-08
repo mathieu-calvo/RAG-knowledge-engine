@@ -1,25 +1,44 @@
-from langchain_openai import OpenAIEmbeddings
+from langchain_core.embeddings import Embeddings
 
 from rag_engine.config import get_settings
 
 
-def get_embedding_model(model: str | None = None) -> OpenAIEmbeddings:
+def get_embedding_model(
+    provider: str | None = None,
+    model: str | None = None,
+) -> Embeddings:
     """Create an embedding model instance.
 
-    Currently supports OpenAI embedding models. The embedding model is separate
-    from the LLM provider choice -- embeddings always use OpenAI since they offer
-    the best price/performance ratio for embeddings.
+    Supports two providers:
+    - "huggingface" (default): Runs locally via sentence-transformers. Free, no API key.
+    - "openai": Uses OpenAI's API. Requires an API key and costs money.
 
     Args:
-        model: Embedding model name. Defaults to config value.
+        provider: Embedding provider ("huggingface" or "openai"). Defaults to config.
+        model: Model name. Defaults to config value.
 
     Returns:
-        An OpenAIEmbeddings instance.
+        A LangChain Embeddings instance.
     """
     settings = get_settings()
+    provider = provider or settings.embedding_provider
     model = model or settings.embedding_model
 
-    return OpenAIEmbeddings(
-        model=model,
-        api_key=settings.openai_api_key,
-    )
+    if provider == "huggingface":
+        from langchain_community.embeddings import HuggingFaceEmbeddings
+
+        return HuggingFaceEmbeddings(model_name=model)
+
+    elif provider == "openai":
+        from langchain_openai import OpenAIEmbeddings
+
+        return OpenAIEmbeddings(
+            model=model,
+            api_key=settings.openai_api_key,
+        )
+
+    else:
+        raise ValueError(
+            f"Unsupported embedding provider '{provider}'. "
+            "Choose from: 'huggingface', 'openai'"
+        )

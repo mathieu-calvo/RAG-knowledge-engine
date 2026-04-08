@@ -1,12 +1,10 @@
 # Core
 langchain>=0.3.0
-langchain-openai>=0.2.0
-langchain-anthropic>=0.2.0
+langchain-google-genai>=2.0.0
 langchain-chroma>=0.1.0
 langchain-community>=0.3.0
 chromadb>=0.5.0
-openai>=1.40.0
-anthropic>=0.34.0
+google-generativeai>=0.8.0
 pydantic-settings>=2.0.0
 python-dotenv>=1.0.0
 
@@ -14,12 +12,20 @@ python-dotenv>=1.0.0
 pypdf>=4.0.0
 beautifulsoup4>=4.12.0
 
-# ML / Visualization
+# Embeddings (local, free)
 sentence-transformers>=3.0.0
+
+# ML / Visualization
 pandas>=2.0.0
 numpy>=1.26.0
 matplotlib>=3.8.0
 scikit-learn>=1.4.0
+
+# Optional: paid LLM providers
+# langchain-openai>=0.2.0
+# openai>=1.40.0
+# langchain-anthropic>=0.2.0
+# anthropic>=0.34.0
 
 # App (optional)
 streamlit>=1.38.0

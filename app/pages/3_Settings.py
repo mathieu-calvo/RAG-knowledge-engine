@@ -19,29 +19,35 @@ settings = get_settings()
 
 st.markdown("### LLM Configuration")
 
+providers = ["google", "openai", "anthropic"]
+default_idx = providers.index(settings.llm_provider) if settings.llm_provider in providers else 0
+
 col1, col2 = st.columns(2)
 with col1:
-    provider = st.selectbox(
-        "LLM Provider",
-        ["openai", "anthropic"],
-        index=0 if settings.llm_provider == "openai" else 1,
-    )
+    provider = st.selectbox("LLM Provider", providers, index=default_idx)
 
 with col2:
-    if provider == "openai":
-        model_options = ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo"]
-    else:
-        model_options = ["claude-sonnet-4-20250514", "claude-haiku-4-5-20251001"]
-
-    model = st.selectbox("Model", model_options)
+    model_map = {
+        "google": ["gemini-2.0-flash", "gemini-1.5-pro"],
+        "openai": ["gpt-4o-mini", "gpt-4o"],
+        "anthropic": ["claude-sonnet-4-20250514", "claude-haiku-4-5-20251001"],
+    }
+    model = st.selectbox("Model", model_map[provider])
 
 temperature = st.slider("Temperature", 0.0, 1.0, 0.0, step=0.1)
 
 st.markdown("### Embedding Configuration")
-embedding_model = st.selectbox(
-    "Embedding Model",
-    ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"],
+embed_provider = st.selectbox(
+    "Embedding Provider",
+    ["huggingface", "openai"],
+    index=0 if settings.embedding_provider == "huggingface" else 1,
+    help="HuggingFace runs locally (free). OpenAI requires an API key.",
 )
+embed_models = {
+    "huggingface": ["all-MiniLM-L6-v2", "all-mpnet-base-v2"],
+    "openai": ["text-embedding-3-small", "text-embedding-3-large"],
+}
+embedding_model = st.selectbox("Embedding Model", embed_models[embed_provider])
 
 st.markdown("### RAG Configuration")
 

@@ -12,11 +12,13 @@ class Settings(BaseSettings):
     # LLM API Keys
     openai_api_key: str = ""
     anthropic_api_key: str = ""
+    google_api_key: str = ""
 
     # LLM Configuration
-    llm_provider: str = "openai"  # "openai" or "anthropic"
-    llm_model: str = "gpt-4o-mini"
-    embedding_model: str = "text-embedding-3-small"
+    llm_provider: str = "google"  # "google", "openai", or "anthropic"
+    llm_model: str = "gemini-2.0-flash"
+    embedding_provider: str = "huggingface"  # "huggingface" or "openai"
+    embedding_model: str = "all-MiniLM-L6-v2"
 
     # Vector Store
     chroma_persist_dir: str = "./chroma_db"

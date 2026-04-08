@@ -5,9 +5,11 @@
 [![LangChain](https://img.shields.io/badge/LangChain-0.3-green.svg)](https://python.langchain.com/)
 [![ChromaDB](https://img.shields.io/badge/ChromaDB-0.5-orange.svg)](https://www.trychroma.com/)
 
-A **production-quality Retrieval-Augmented Generation (RAG) pipeline** with educational notebooks — built with LangChain, ChromaDB, and swappable LLM providers (OpenAI + Anthropic).
+A **production-quality Retrieval-Augmented Generation (RAG) pipeline** with educational notebooks — built with LangChain, ChromaDB, and swappable LLM providers (Google Gemini, OpenAI, Anthropic).
 
 This project is both a **working RAG system** and a **step-by-step tutorial** explaining how RAG is built in practice.
+
+**Runs for free** — defaults to Google Gemini (free tier) and local HuggingFace embeddings. No paid API required.
 
 ## Architecture
 
@@ -21,7 +23,8 @@ This project is both a **working RAG system** and a **step-by-step tutorial** ex
                                                                 │
 ┌─────────────┐    ┌──────────────┐    ┌────────────┐    ┌─────┴────────┐
 │   Answer     │<──│     LLM      │<──│   Prompt    │<──│  Retriever   │
-│              │    │(OpenAI/Claude)│   │ (question + │    │ (top-k docs) │
+│              │    │(Gemini/GPT/   │   │ (question + │    │ (top-k docs) │
+│              │    │    Claude)    │
 └─────────────┘    └──────────────┘    │  context)   │    └──────────────┘
                                        └────────────┘
 ```
@@ -32,7 +35,7 @@ This project is both a **working RAG system** and a **step-by-step tutorial** ex
 - [x] **Configurable chunking** — character, recursive, and token-based strategies
 - [x] **Semantic search** with ChromaDB vector store
 - [x] **Multiple retrieval strategies** — similarity search, MMR, score threshold
-- [x] **Swappable LLM providers** — OpenAI and Anthropic via a single factory pattern
+- [x] **Swappable LLM providers** — Google Gemini (free), OpenAI, and Anthropic via a single factory pattern
 - [x] **RAG evaluation** — built-in evaluation pipeline with RAGAS support
 - [x] **Advanced techniques** — HyDE, multi-query retrieval, cross-encoder re-ranking
 - [x] **Interactive Streamlit app** — upload docs, chat, and configure settings
@@ -43,8 +46,10 @@ This project is both a **working RAG system** and a **step-by-step tutorial** ex
 
 - **[LangChain](https://python.langchain.com/)** — LLM application framework
 - **[ChromaDB](https://www.trychroma.com/)** — Local vector database
-- **[OpenAI](https://platform.openai.com/)** — GPT models and embeddings
-- **[Anthropic](https://www.anthropic.com/)** — Claude models
+- **[Google Gemini](https://ai.google.dev/)** — Free-tier LLM (default)
+- **[HuggingFace](https://huggingface.co/)** — Local embeddings (default, free)
+- **[OpenAI](https://platform.openai.com/)** — GPT models and embeddings (optional, paid)
+- **[Anthropic](https://www.anthropic.com/)** — Claude models (optional, paid)
 - **[Streamlit](https://streamlit.io/)** — Interactive web app
 - **[RAGAS](https://docs.ragas.io/)** — RAG evaluation framework
 
@@ -53,23 +58,50 @@ This project is both a **working RAG system** and a **step-by-step tutorial** ex
 ### Prerequisites
 
 - Python 3.10+
-- An OpenAI API key (required for embeddings)
-- An Anthropic API key (optional, for Claude models)
+- A Google API key (**free** — see step 2 below)
+- OpenAI or Anthropic API keys are **optional** (paid) if you want to use those providers
 
 ### Installation
 
+**1. Clone and install:**
+
 ```bash
-# Clone the repository
 git clone https://github.com/mathieu-calvo/RAG-knowledge-engine-.git
 cd RAG-knowledge-engine-
-
-# Install the package
 pip install -e ".[dev,app,eval]"
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your API keys
 ```
+
+**2. Get a free Google API key:**
+
+1. Go to [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
+2. Sign in with your Google account
+3. Click **"Create API Key"**
+4. Copy the key (it starts with `AIza...`)
+
+**3. Create your `.env` configuration file:**
+
+The project reads secrets and settings from a file called `.env` in the project root. This file is **not** committed to Git (it's in `.gitignore`) so your API keys stay private.
+
+A template called `.env.example` is provided. Copy it to create your own `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Then open `.env` in any text editor and paste your Google API key:
+
+```
+GOOGLE_API_KEY=AIzaSy...your-actual-key-here
+```
+
+That's it — the rest of the defaults (Gemini Flash for LLM, HuggingFace for embeddings) are already set and work for free.
+
+> **Want to use OpenAI or Anthropic instead?** Install the optional dependencies and update `.env`:
+> ```bash
+> pip install -e ".[openai]"    # for GPT models
+> pip install -e ".[anthropic]" # for Claude models
+> ```
+> Then set `LLM_PROVIDER=openai` (or `anthropic`) and the corresponding API key in `.env`.
 
 ### Quick Start
 
