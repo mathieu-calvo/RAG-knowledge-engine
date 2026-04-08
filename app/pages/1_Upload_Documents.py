@@ -11,10 +11,10 @@ from dotenv import load_dotenv
 
 load_dotenv(os.path.join(project_root, ".env"))
 
-from rag_engine.loaders import load_documents
 from rag_engine.chunking.strategies import chunk_documents
-from rag_engine.vectorstore.chroma_store import add_documents, get_vectorstore
 from rag_engine.config import get_settings
+from rag_engine.loaders import load_documents
+from rag_engine.vectorstore.chroma_store import add_documents
 
 st.title("Upload Documents")
 

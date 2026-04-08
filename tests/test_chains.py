@@ -1,10 +1,8 @@
-from unittest.mock import MagicMock
 
-import pytest
 from langchain_core.documents import Document
 
 from rag_engine.chains.prompts import HYDE_PROMPT, RAG_PROMPT, RAG_PROMPT_CONCISE
-from rag_engine.chains.rag_chain import build_rag_chain, format_documents
+from rag_engine.chains.rag_chain import format_documents
 
 
 class TestFormatDocuments:

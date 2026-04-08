@@ -10,11 +10,11 @@ from dotenv import load_dotenv
 
 load_dotenv(os.path.join(project_root, ".env"))
 
-from rag_engine.vectorstore.chroma_store import get_vectorstore
-from rag_engine.retrieval.retriever import RetrieverFactory
-from rag_engine.llm.provider import LLMProvider
 from rag_engine.chains.rag_chain import build_rag_chain_with_sources
 from rag_engine.config import get_settings
+from rag_engine.llm.provider import LLMProvider
+from rag_engine.retrieval.retriever import RetrieverFactory
+from rag_engine.vectorstore.chroma_store import get_vectorstore
 
 st.title("Chat with Your Documents")
 
