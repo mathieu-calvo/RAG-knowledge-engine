@@ -74,5 +74,5 @@ def clear_vectorstore(
     client = chromadb.PersistentClient(path=persist_directory)
     try:
         client.delete_collection(collection_name)
-    except ValueError:
+    except (ValueError, Exception):
         pass  # Collection doesn't exist, nothing to clear

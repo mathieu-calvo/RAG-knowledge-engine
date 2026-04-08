@@ -1,11 +1,12 @@
 from pathlib import Path
 
-from langchain_community.document_loaders import UnstructuredMarkdownLoader
 from langchain_core.documents import Document
 
 
 def load_markdown(file_path: str | Path) -> list[Document]:
     """Load a Markdown file and return a list of Documents.
+
+    Uses a simple file read (no external dependencies like 'unstructured').
 
     Args:
         file_path: Path to the Markdown file.
@@ -19,11 +20,11 @@ def load_markdown(file_path: str | Path) -> list[Document]:
     if file_path.suffix.lower() not in (".md", ".markdown"):
         raise ValueError(f"Expected a .md/.markdown file, got: {file_path.suffix}")
 
-    loader = UnstructuredMarkdownLoader(str(file_path))
-    documents = loader.load()
+    text = file_path.read_text(encoding="utf-8")
 
-    for doc in documents:
-        doc.metadata["source"] = str(file_path)
-        doc.metadata["file_type"] = "markdown"
+    document = Document(
+        page_content=text,
+        metadata={"source": str(file_path), "file_type": "markdown"},
+    )
 
-    return documents
+    return [document]
