@@ -15,8 +15,8 @@ Bi-encoder,A model that independently encodes two texts into vectors for compari
 BM25,"A sparse retrieval algorithm based on term frequency and inverse document frequency. Good for keyword matching, often combined with dense retrieval.",Algorithm
 HyDE,Hypothetical Document Embeddings. A technique that generates a hypothetical answer to a query and uses its embedding for retrieval instead of the query embedding.,Technique
 MMR,Maximal Marginal Relevance. A retrieval strategy that balances relevance and diversity by penalizing chunks similar to already-selected ones.,Algorithm
-LCEL,"LangChain Expression Language. A declarative syntax for composing LangChain components using the pipe (|) operator.",Framework
-Token,The basic unit of text that language models process. Can be a word, subword, or character depending on the tokenizer.,Preprocessing
+LCEL,LangChain Expression Language. A declarative syntax for composing LangChain components using the pipe (|) operator.,Framework
+Token,"The basic unit of text that language models process. Can be a word,  subword or character depending on the tokenizer.",Preprocessing
 Context Window,The maximum number of tokens a language model can process in a single input. Determines how much retrieved context can be included.,Architecture
 Temperature,A parameter controlling the randomness of LLM output. Lower values produce more deterministic responses; higher values increase creativity.,Hyperparameter
 RAGAS,A framework for evaluating RAG pipelines across dimensions like faithfulness and context precision.,Framework

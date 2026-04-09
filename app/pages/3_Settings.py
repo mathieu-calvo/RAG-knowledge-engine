@@ -28,7 +28,7 @@ with col1:
 
 with col2:
     model_map = {
-        "google": ["gemini-2.0-flash", "gemini-1.5-pro"],
+        "google": ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-flash-latest"],
         "openai": ["gpt-4o-mini", "gpt-4o"],
         "anthropic": ["claude-sonnet-4-20250514", "claude-haiku-4-5-20251001"],
     }

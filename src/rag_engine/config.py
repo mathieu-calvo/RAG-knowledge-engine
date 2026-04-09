@@ -16,7 +16,7 @@ class Settings(BaseSettings):
 
     # LLM Configuration
     llm_provider: str = "google"  # "google", "openai", or "anthropic"
-    llm_model: str = "gemini-2.0-flash"
+    llm_model: str = "gemini-2.5-flash"
     embedding_provider: str = "huggingface"  # "huggingface" or "openai"
     embedding_model: str = "all-MiniLM-L6-v2"
 
