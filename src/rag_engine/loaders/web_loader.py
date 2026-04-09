@@ -19,7 +19,16 @@ def load_web(url: str, timeout: int = 30, retries: int = 2) -> list[Document]:
     if not url.startswith(("http://", "https://")):
         raise ValueError(f"Invalid URL (must start with http:// or https://): {url}")
 
-    loader = WebBaseLoader(url, requests_kwargs={"timeout": timeout})
+    loader = WebBaseLoader(
+        url,
+        requests_kwargs={"timeout": timeout},
+        header_template={
+            "User-Agent": (
+                "RAG-knowledge-engine/0.1 "
+                "(https://github.com/; educational project)"
+            )
+        },
+    )
 
     last_error: Exception | None = None
     for attempt in range(retries + 1):
