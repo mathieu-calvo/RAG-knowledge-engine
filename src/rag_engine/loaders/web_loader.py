@@ -1,8 +1,16 @@
+import os
 import time
 
-import requests
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_core.documents import Document
+# Must be set BEFORE importing WebBaseLoader — langchain_community checks for
+# USER_AGENT at import time and warns if missing.
+os.environ.setdefault(
+    "USER_AGENT",
+    "RAG-knowledge-engine/0.1 (https://github.com/; educational project)",
+)
+
+import requests  # noqa: E402
+from langchain_community.document_loaders import WebBaseLoader  # noqa: E402
+from langchain_core.documents import Document  # noqa: E402
 
 
 def load_web(url: str, timeout: int = 30, retries: int = 2) -> list[Document]:
