@@ -25,7 +25,7 @@ def get_embedding_model(
     model = model or settings.embedding_model
 
     if provider == "huggingface":
-        from langchain_community.embeddings import HuggingFaceEmbeddings
+        from langchain_huggingface import HuggingFaceEmbeddings
 
         return HuggingFaceEmbeddings(model_name=model)
 
